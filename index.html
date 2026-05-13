@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name in Japanese | カタカナ・ひらがな変換</title>
+<meta name="description" content="Convert your name to Japanese Katakana and Hiragana. Get a beautiful calligraphy image of your Japanese name!">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Noto+Serif+JP:wght@400;700&family=DM+Serif+Display&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Google AdSense (replace ca-pub-XXXXXXXXXXXXXXXX with your Publisher ID) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1208;
+    --ink-soft: #4a3f2f;
+    --paper: #faf7f0;
+    --paper-dark: #f0ebe0;
+    --red: #c0392b;
+    --red-light: #e74c3c;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --border: rgba(26,18,8,0.12);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(192,57,43,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(184,134,11,0.06) 0%, transparent 60%);
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    padding: 3rem 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  header .ja-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-bottom: 0.4rem;
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  header h1 span { color: var(--red); }
+  header p {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Ad banner ── */
+  .ad-banner {
+    max-width: 728px;
+    margin: 1.5rem auto;
+    text-align: center;
+  }
+  .ad-label {
+    font-size: 0.7rem;
+    color: #999;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .ad-placeholder {
+    background: #f0ece4;
+    border: 1px dashed #ccc;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #aaa;
+    border-radius: 4px;
+  }
+
+  /* ── Main container ── */
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  /* ── Input section ── */
+  .input-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 2rem 1.5rem;
+    box-shadow: 0 2px 20px rgba(26,18,8,0.06);
+  }
+  .input-card label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 520px) { .input-row { grid-template-columns: 1fr; } }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus { border-color: var(--red); }
+  input[type="text"]::placeholder { color: #bbb; }
+
+  /* Gender & Style selectors */
+  .selector-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .selector-row span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    align-self: center;
+    margin-right: 0.25rem;
+  }
+  .chip {
+    padding: 0.35rem 0.9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    background: var(--paper);
+    color: var(--ink-soft);
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .chip:hover { border-color: var(--red); color: var(--red); }
+  .chip.active { background: var(--red); border-color: var(--red); color: white; }
+
+  .convert-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.1s;
+    font-family: 'Inter', sans-serif;
+  }
+  .convert-btn:hover { background: var(--red-light); }
+  .convert-btn:active { transform: scale(0.98); }
+
+  /* ── Result section ── */
+  #result-section { display: none; margin-top: 2rem; }
+
+  .result-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(26,18,8,0.06);
+  }
+  .result-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+  .result-tab {
+    flex: 1;
+    padding: 0.8rem;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--ink-soft);
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    font-family: 'Noto Serif JP', serif;
+    letter-spacing: 0.05em;
+  }
+  .result-tab.active { color: var(--red); border-bottom-color: var(--red); }
+
+  .result-display {
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .jp-name-large {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(3.5rem, 12vw, 6rem);
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .jp-name-reading {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.25em;
+    margin-bottom: 0.25rem;
+  }
+  .jp-name-meaning {
+    font-size: 0.85rem;
+    color: #999;
+    letter-spacing: 0.05em;
+    font-style: italic;
+  }
+
+  /* Result tabs content */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Name breakdown */
+  .name-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .name-part {
+    text-align: center;
+    padding: 1rem 1.5rem;
+    background: var(--paper);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    min-width: 120px;
+  }
+  .name-part-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 0.4rem;
+  }
+  .name-part-value {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 2.2rem;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+  }
+  .name-part-reading {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+
+  /* ── Premium / Calligraphy section ── */
+  .premium-card {
+    margin-top: 1.5rem;
+    border: 1.5px solid var(--gold);
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #fffdf5 0%, #fdf6e3 100%);
+  }
+  .premium-header {
+    background: var(--gold);
+    padding: 0.7rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .premium-header span {
+    color: white;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .premium-badge {
+    background: white;
+    color: var(--gold);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.1em;
+  }
+  .premium-body {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  @media (max-width: 520px) { .premium-body { grid-template-columns: 1fr; } }
+
+  /* Canvas preview */
+  #calligraphy-preview {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid rgba(184,134,11,0.2);
+    background: white;
+    display: block;
+  }
+
+  .premium-info h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .premium-info p {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .premium-features {
+    list-style: none;
+    margin-bottom: 1rem;
+  }
+  .premium-features li {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    padding: 0.2rem 0;
+  }
+  .premium-features li::before {
+    content: '✦ ';
+    color: var(--gold);
+    font-size: 0.7rem;
+  }
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .price-tag {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--ink);
+  }
+  .price-note { font-size: 0.78rem; color: #aaa; }
+
+  .download-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .download-btn:hover { background: var(--gold-light); }
+
+  /* Style selector for calligraphy */
+  .style-chips {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .style-chip {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    color: var(--ink-soft);
+    background: white;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .style-chip:hover { border-color: var(--gold); color: var(--gold-light); }
+  .style-chip.active { background: var(--gold); border-color: var(--gold); color: white; }
+
+  /* ── Mid-page ad ── */
+  .ad-mid {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  /* ── Info / FAQ section ── */
+  .info-section { margin-top: 3rem; }
+  .info-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: var(--ink);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+  }
+  .faq-q {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-q::after { content: '+'; font-size: 1.2rem; color: var(--red); }
+  .faq-q.open::after { content: '−'; }
+  .faq-a {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    display: none;
+    padding-top: 0.5rem;
+  }
+  .faq-a.open { display: block; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-top: 3rem;
+  }
+  footer a { color: var(--red-light); text-decoration: none; }
+
+  /* ── Modal ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+  }
+  .modal h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+  .modal p { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 1.5rem; line-height: 1.6; }
+  .modal-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+  }
+  .modal-note { font-size: 0.75rem; color: #bbb; margin-bottom: 1.5rem; }
+  .modal-btn-primary {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.2s;
+  }
+  .modal-btn-primary:hover { background: var(--gold-light); }
+  .modal-btn-secondary {
+    width: 100%;
+    padding: 0.7rem;
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+  }
+  .payment-icons { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .payment-icon {
+    background: var(--paper-dark);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* Loading spinner */
+  .loading { display: none; text-align: center; padding: 2rem; }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border);
+    border-top-color: var(--red);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 0.75rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Smooth reveal */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.4s ease forwards; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="ja-title">お名前を日本語に</div>
+  <h1>Your Name in <span>Japanese</span></h1>
+  <p>Instantly convert your name into beautiful Katakana & Hiragana — used by millions across Japan</p>
+</header>
+
+<!-- Top Ad -->
+<div class="ad-banner">
+  <div class="ad-label">Advertisement</div>
+  <!-- Replace below with your actual AdSense ad unit code -->
+  <!--
+  <ins class="adsbygoogle"
+    style="display:inline-block;width:728px;height:90px"
+    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+    data-ad-slot="XXXXXXXXXX"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  -->
+  <div class="ad-placeholder">[ AdSense 728×90 Banner — replace with your ad unit code ]</div>
+</div>
+
+<main>
+
+  <!-- Input Card -->
+  <div class="input-card">
+    <div class="input-row">
+      <div>
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" placeholder="e.g. Sarah" maxlength="30">
+      </div>
+      <div>
+        <label for="last-name">Last Name (optional)</label>
+        <input type="text" id="last-name" placeholder="e.g. Johnson" maxlength="30">
+      </div>
+    </div>
+
+    <div class="selector-row">
+      <span>Output:</span>
+      <button class="chip active" data-script="both">Both</button>
+      <button class="chip" data-script="katakana">Katakana only</button>
+      <button class="chip" data-script="hiragana">Hiragana only</button>
+    </div>
+
+    <button class="convert-btn" onclick="convertName()">✦ Convert my name → 変換する</button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p style="font-size:0.85rem; color:#999;">Looking up phonetic translation…</p>
+  </div>
+
+  <!-- Result Section -->
+  <div id="result-section">
+    <div class="result-card fade-up">
+      <div class="result-tabs">
+        <div class="result-tab active" data-tab="katakana" onclick="switchTab('katakana')">カタカナ Katakana</div>
+        <div class="result-tab" data-tab="hiragana" onclick="switchTab('hiragana')">ひらがな Hiragana</div>
+        <div class="result-tab" data-tab="info" onclick="switchTab('info')">How to Read</div>
+      </div>
+
+      <div id="tab-katakana" class="tab-content active">
+        <div class="result-display">
+          <div class="jp-name-large" id="result-katakana">—</div>
+          <div class="jp-name-reading" id="result-katakana-reading"></div>
+          <div class="jp-name-meaning">Standard Japanese transliteration</div>
+          <div class="name-breakdown" id="breakdown-katakana"></div>
+        </div>
+      </div>
+
+      <div id="tab-hiragana" class="tab-content">
+        <div class="result-display">
+          <div class="jp-name-large" id="result-hiragana">—</div>
+          <div class="jp-name-reading" id="result-hiragana-reading"></div>
+          <div class="jp-name-meaning">Soft, flowing Japanese script</div>
+          <div class="name-breakdown" id="breakdown-hiragana"></div>
+        </div>
+      </div>
+
+      <div id="tab-info" class="tab-content">
+        <div class="result-display" style="text-align:left;">
+          <h3 style="font-family:'DM Serif Display',serif; font-weight:400; font-size:1.3rem; margin-bottom:1rem;">About your Japanese name</h3>
+          <div id="name-info-content" style="font-size:0.9rem; color:#555; line-height:1.8;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Ad -->
+    <div class="ad-mid">
+      <div class="ad-label">Advertisement</div>
+      <!--
+      <ins class="adsbygoogle"
+        style="display:block;width:100%;max-width:468px;height:60px;margin:0 auto;"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="XXXXXXXXXX"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      -->
+      <div class="ad-placeholder" style="max-width:468px; margin:0 auto; height:60px;">[ AdSense 468×60 — replace with your ad unit code ]</div>
+    </div>
+
+    <!-- Premium Calligraphy Card -->
+    <div class="premium-card fade-up">
+      <div class="premium-header">
+        <span>✦ Premium Calligraphy Download</span>
+        <span class="premium-badge">$1 – $2</span>
+      </div>
+      <div class="premium-body">
+        <div>
+          <canvas id="calligraphy-preview" width="280" height="280"></canvas>
+        </div>
+        <div class="premium-info">
+          <h3>Brushstroke Art of Your Name</h3>
+          <p>A high-resolution 2000×2000px PNG in authentic Japanese calligraphy style — perfect for printing, framing, or sharing.</p>
+
+          <div class="style-chips">
+            <button class="style-chip active" data-cstyle="ink" onclick="selectCalligStyle('ink', this)">Sumi Ink</button>
+            <button class="style-chip" data-cstyle="red" onclick="selectCalligStyle('red', this)">Vermilion</button>
+            <button class="style-chip" data-cstyle="gold" onclick="selectCalligStyle('gold', this)">Gold Leaf</button>
+          </div>
+
+          <ul class="premium-features">
+            <li>2000 × 2000 px high resolution PNG</li>
+            <li>Transparent or white background</li>
+            <li>Instant download — no account needed</li>
+            <li>First name only ($1) or full name ($2)</li>
+          </ul>
+
+          <div class="price-row">
+            <div>
+              <div class="price-tag">$1 <span style="font-size:1rem;">/ $2</span></div>
+              <div class="price-note">One-time · Instant download</div>
+            </div>
+          </div>
+
+          <button class="download-btn" onclick="openPaymentModal()">⬇ Download Calligraphy Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info / FAQ -->
+  <div class="info-section">
+    <h2>About Japanese Writing Systems</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is Katakana (カタカナ)?</div>
+      <div class="faq-a">Katakana is one of Japan's three writing systems, used primarily to write foreign words, names, and loanwords. It has angular, blocky shapes and is the standard way to write Western names in Japanese. When you see your name in Japan — on merchandise, in manga, or at hotels — it will almost always be in Katakana.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is Hiragana (ひらがな)?</div>
+      <div class="faq-a">Hiragana is the softer, more cursive counterpart to Katakana. It is used for native Japanese words and grammatical elements. While names are usually written in Katakana, some people prefer the rounded look of Hiragana for artistic purposes. Both represent the same sounds.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How accurate is the conversion?</div>
+      <div class="faq-a">Japanese phonetics are syllable-based (mora system). English sounds that don't exist in Japanese are approximated — for example, "L" becomes "R", and consonant clusters get vowels inserted. The conversions shown here follow standard Japanese phonological conventions used in official transliteration guides.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is included in the calligraphy download?</div>
+      <div class="faq-a">You receive a 2000×2000px PNG file rendered in a traditional Japanese brushstroke style. The image includes your name in large calligraphic characters with an optional decorative seal (hanko) in the corner. It is suitable for high-quality printing up to A4 size.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Which payment methods are accepted?</div>
+      <div class="faq-a">We accept all major credit and debit cards (Visa, Mastercard, Amex), PayPal, and Apple/Google Pay via Stripe's secure checkout. Your payment details are never stored on our servers.</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Payment Modal -->
+<div class="modal-overlay" id="payment-modal">
+  <div class="modal">
+    <div style="font-size:2rem; margin-bottom:0.5rem;">🖌️</div>
+    <h2>Download Calligraphy</h2>
+    <p>Get a beautiful high-resolution brushstroke image of <strong id="modal-name-display">your name</strong> in Japanese calligraphy.</p>
+    <div class="modal-price" id="modal-price">$1.00</div>
+    <div class="modal-note">One-time payment · Instant PNG download · No subscription</div>
+
+    <div style="display:flex; gap:0.75rem; margin-bottom:1rem;">
+      <button onclick="selectDownloadOption('first')" id="opt-first"
+        style="flex:1; padding:0.6rem; border:1.5px solid #d4a017; border-radius:8px; background:#fffdf5; cursor:pointer; font-size:0.82rem; font-family:Inter,sans-serif;">
+        <strong>First name only</strong><br><span style="color:#aaa;">$1.00</span>
+      </button>
+      <button onclick="selectDownloadOption('full')" id="opt-full"
+        style="flex:1; padding:0.6rem; border:1.5px solid #ddd; border-radius:8px; background:white; cursor:pointer; font-size:0.82rem; font-family:Inter,sans-serif;">
+        <strong>Full name</strong><br><span style="color:#aaa;">$2.00</span>
+      </button>
+    </div>
+
+    <div class="payment-icons">
+      <span class="payment-icon">VISA</span>
+      <span class="payment-icon">MC</span>
+      <span class="payment-icon">AMEX</span>
+      <span class="payment-icon">PayPal</span>
+      <span class="payment-icon">Apple Pay</span>
+    </div>
+
+    <!-- Replace href with your actual Stripe payment link -->
+    <button class="modal-btn-primary" onclick="goToCheckout()">🔒 Pay & Download Now</button>
+    <button class="modal-btn-secondary" onclick="closeModal()">Maybe later</button>
+    <p style="font-size:0.72rem; color:#ccc; margin-top:0.75rem;">Secured by Stripe. We never store your payment info.</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 YourNameInJapanese.com &nbsp;·&nbsp; <a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms</a> &nbsp;·&nbsp; <a href="#">Contact</a></p>
+  <p style="margin-top:0.4rem;">Not affiliated with any Japanese government body. Transliterations are phonetic approximations.</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   PHONETIC CONVERSION DATABASE
+   English phonemes → Japanese Katakana/Hiragana
+═══════════════════════════════════════════════════════ */
+
+// Common name database (first names)
+const nameDb = {
+  // A
+  "aaron":    { k:"アーロン", h:"あーろん", r:"Āron" },
+  "adam":     { k:"アダム",   h:"あだむ",   r:"Adamu" },
+  "alex":     { k:"アレックス", h:"あれっくす", r:"Arekkusu" },
+  "alice":    { k:"アリス",   h:"ありす",   r:"Arisu" },
+  "amanda":   { k:"アマンダ", h:"あまんだ", r:"Amanda" },
+  "amy":      { k:"エイミー", h:"えいみー", r:"Eimī" },
+  "andrew":   { k:"アンドリュー", h:"あんどりゅー", r:"Andoryū" },
+  "angela":   { k:"アンジェラ", h:"あんじぇら", r:"Anjera" },
+  "anna":     { k:"アンナ",   h:"あんな",   r:"Anna" },
+  "ashley":   { k:"アシュリー", h:"あしゅりー", r:"Ashurī" },
+  // B
+  "benjamin": { k:"ベンジャミン", h:"べんじゃみん", r:"Benjyamin" },
+  "brian":    { k:"ブライアン", h:"ぶらいあん", r:"Buraian" },
+  "brandon":  { k:"ブランドン", h:"ぶらんどん", r:"Burandon" },
+  "brittany": { k:"ブリタニー", h:"ぶりたにー", r:"Buritanī" },
+  // C
+  "charles":  { k:"チャールズ", h:"ちゃーるず", r:"Chāruzu" },
+  "charlotte": { k:"シャーロット", h:"しゃーろっと", r:"Shārotto" },
+  "christopher": { k:"クリストファー", h:"くりすとふぁー", r:"Kurisutofā" },
+  "chris":    { k:"クリス",   h:"くりす",   r:"Kurisu" },
+  "chloe":    { k:"クロエ",   h:"くろえ",   r:"Kuroe" },
+  // D
+  "daniel":   { k:"ダニエル", h:"だにえる", r:"Danieru" },
+  "david":    { k:"デイビッド", h:"でいびっど", r:"Deibiddo" },
+  "diana":    { k:"ダイアナ", h:"だいあな", r:"Daiana" },
+  "dylan":    { k:"ディラン", h:"でぃらん", r:"Diran" },
+  // E
+  "elizabeth": { k:"エリザベス", h:"えりざべす", r:"Erizabesu" },
+  "emily":    { k:"エミリー", h:"えみりー", r:"Emirī" },
+  "emma":     { k:"エマ",     h:"えま",     r:"Ema" },
+  "ethan":    { k:"イーサン", h:"いーさん", r:"Īsan" },
+  "evan":     { k:"エヴァン", h:"えう゛ぁん", r:"Evan" },
+  // F
+  "frank":    { k:"フランク", h:"ふらんく", r:"Furanku" },
+  // G
+  "gabriel":  { k:"ガブリエル", h:"がぶりえる", r:"Gaburieru" },
+  "george":   { k:"ジョージ", h:"じょーじ", r:"Jōji" },
+  "grace":    { k:"グレース", h:"ぐれーす", r:"Gurēsu" },
+  // H
+  "hannah":   { k:"ハンナ",   h:"はんな",   r:"Hanna" },
+  "henry":    { k:"ヘンリー", h:"へんりー", r:"Henrī" },
+  // I
+  "isabella":  { k:"イザベラ", h:"いざべら", r:"Izabera" },
+  // J
+  "jack":     { k:"ジャック", h:"じゃっく", r:"Jakku" },
+  "jacob":    { k:"ジェイコブ", h:"じぇいこぶ", r:"Jeikobu" },
+  "james":    { k:"ジェームズ", h:"じぇーむず", r:"Jēmuzu" },
+  "jane":     { k:"ジェーン", h:"じぇーん", r:"Jēn" },
+  "jason":    { k:"ジェイソン", h:"じぇいそん", r:"Jeison" },
+  "jessica":  { k:"ジェシカ", h:"じぇしか", r:"Jeshika" },
+  "john":     { k:"ジョン",   h:"じょん",   r:"Jon" },
+  "joseph":   { k:"ジョセフ", h:"じょせふ", r:"Josefu" },
+  "joshua":   { k:"ジョシュア", h:"じょしゅあ", r:"Joshua" },
+  "julia":    { k:"ジュリア", h:"じゅりあ", r:"Juria" },
+  // K
+  "karen":    { k:"カレン",   h:"かれん",   r:"Karen" },
+  "kate":     { k:"ケイト",   h:"けいと",   r:"Keito" },
+  "katherine": { k:"キャサリン", h:"きゃさりん", r:"Kyasarin" },
+  "kevin":    { k:"ケビン",   h:"けびん",   r:"Kebin" },
+  // L
+  "laura":    { k:"ローラ",   h:"ろーら",   r:"Rōra" },
+  "lauren":   { k:"ローレン", h:"ろーれん", r:"Rōren" },
+  "liam":     { k:"リアム",   h:"りあむ",   r:"Riamu" },
+  "linda":    { k:"リンダ",   h:"りんだ",   r:"Rinda" },
+  "lisa":     { k:"リサ",     h:"りさ",     r:"Risa" },
+  "lucas":    { k:"ルーカス", h:"るーかす", r:"Rūkasu" },
+  // M
+  "madison":  { k:"マディソン", h:"までぃそん", r:"Madison" },
+  "maria":    { k:"マリア",   h:"まりあ",   r:"Maria" },
+  "mark":     { k:"マーク",   h:"まーく",   r:"Māku" },
+  "mary":     { k:"メアリー", h:"めありー", r:"Mearī" },
+  "matthew":  { k:"マシュー", h:"ましゅー", r:"Mashū" },
+  "michael":  { k:"マイケル", h:"まいける", r:"Maikeru" },
+  "mike":     { k:"マイク",   h:"まいく",   r:"Maiku" },
+  "mia":      { k:"ミア",     h:"みあ",     r:"Mia" },
+  // N
+  "natalie":  { k:"ナタリー", h:"なたりー", r:"Natarī" },
+  "nathan":   { k:"ネイサン", h:"ねいさん", r:"Neisan" },
+  "nicholas": { k:"ニコラス", h:"にこらす", r:"Nikorasu" },
+  "noah":     { k:"ノア",     h:"のあ",     r:"Noa" },
+  // O
+  "olivia":   { k:"オリビア", h:"おりびあ", r:"Oribia" },
+  "oliver":   { k:"オリバー", h:"おりばー", r:"Oribā" },
+  // P
+  "patricia": { k:"パトリシア", h:"ぱとりしあ", r:"Patorishia" },
+  "patrick":  { k:"パトリック", h:"ぱとりっく", r:"Patorikku" },
+  "paul":     { k:"ポール",   h:"ぽーる",   r:"Pōru" },
+  "peter":    { k:"ピーター", h:"ぴーたー", r:"Pītā" },
+  // R
+  "rachel":   { k:"レイチェル", h:"れいちぇる", r:"Reicheru" },
+  "rebecca":  { k:"レベッカ", h:"れべっか", r:"Rebekka" },
+  "richard":  { k:"リチャード", h:"りちゃーど", r:"Richādo" },
+  "robert":   { k:"ロバート", h:"ろばーと", r:"Robāto" },
+  "ryan":     { k:"ライアン", h:"らいあん", r:"Raian" },
+  // S
+  "samantha": { k:"サマンサ", h:"さまんさ", r:"Samansa" },
+  "samuel":   { k:"サミュエル", h:"さみゅえる", r:"Samyueru" },
+  "sarah":    { k:"サラ",     h:"さら",     r:"Sara" },
+  "sophia":   { k:"ソフィア", h:"そふぃあ", r:"Sofia" },
+  "stephen":  { k:"スティーブン", h:"すてぃーぶん", r:"Sutībun" },
+  "steven":   { k:"スティーブン", h:"すてぃーぶん", r:"Sutībun" },
+  "stephanie": { k:"ステファニー", h:"すてふぁにー", r:"Sutefanī" },
+  "susan":    { k:"スーザン", h:"すーざん", r:"Sūzan" },
+  // T
+  "taylor":   { k:"テイラー", h:"ていらー", r:"Teirā" },
+  "thomas":   { k:"トーマス", h:"とーます", r:"Tōmasu" },
+  "timothy":  { k:"ティモシー", h:"てぃもしー", r:"Timoshī" },
+  "tom":      { k:"トム",     h:"とむ",     r:"Tomu" },
+  "tyler":    { k:"タイラー", h:"たいらー", r:"Tairā" },
+  // V
+  "victoria": { k:"ビクトリア", h:"びくとりあ", r:"Bikutoria" },
+  // W
+  "william":  { k:"ウィリアム", h:"うぃりあむ", r:"Uiriamu" },
+  // Z
+  "zachary":  { k:"ザカリー", h:"ざかりー", r:"Zakarī" },
+};
+
+// Last name database
+const lastNameDb = {
+  "smith":    { k:"スミス",   h:"すみす",   r:"Sumisu" },
+  "johnson":  { k:"ジョンソン", h:"じょんそん", r:"Johnson" },
+  "williams": { k:"ウィリアムズ", h:"うぃりあむず", r:"Uiriamzu" },
+  "brown":    { k:"ブラウン", h:"ぶらうん", r:"Buraun" },
+  "jones":    { k:"ジョーンズ", h:"じょーんず", r:"Jōnzu" },
+  "garcia":   { k:"ガルシア", h:"がるしあ", r:"Garushia" },
+  "miller":   { k:"ミラー",   h:"みらー",   r:"Mirā" },
+  "davis":    { k:"デイビス", h:"でいびす", r:"Deibisu" },
+  "wilson":   { k:"ウィルソン", h:"うぃるそん", r:"Uiruson" },
+  "anderson": { k:"アンダーソン", h:"あんだーそん", r:"Andāson" },
+  "taylor":   { k:"テイラー", h:"ていらー", r:"Teirā" },
+  "thomas":   { k:"トーマス", h:"とーます", r:"Tōmasu" },
+  "jackson":  { k:"ジャクソン", h:"じゃくそん", r:"Jakuson" },
+  "white":    { k:"ホワイト", h:"ほわいと", r:"Howaito" },
+  "harris":   { k:"ハリス",   h:"はりす",   r:"Harisu" },
+  "martin":   { k:"マーティン", h:"まーてぃん", r:"Mātin" },
+  "thompson": { k:"トンプソン", h:"とんぷそん", r:"Tonpuson" },
+  "martinez": { k:"マルティネス", h:"まるてぃねす", r:"Marutinesu" },
+  "robinson": { k:"ロビンソン", h:"ろびんそん", r:"Robinson" },
+  "clark":    { k:"クラーク", h:"くらーく", r:"Kurāku" },
+  "rodriguez": { k:"ロドリゲス", h:"ろどりげす", r:"Rodorigesu" },
+  "lewis":    { k:"ルイス",   h:"るいす",   r:"Ruisu" },
+  "lee":      { k:"リー",     h:"りー",     r:"Rī" },
+  "walker":   { k:"ウォーカー", h:"うぉーかー", r:"Wōkā" },
+  "hall":     { k:"ホール",   h:"ほーる",   r:"Hōru" },
+  "allen":    { k:"アレン",   h:"あれん",   r:"Aren" },
+  "young":    { k:"ヤング",   h:"やんぐ",   r:"Yangu" },
+  "king":     { k:"キング",   h:"きんぐ",   r:"Kingu" },
+  "scott":    { k:"スコット", h:"すこっと", r:"Sukotto" },
+  "green":    { k:"グリーン", h:"ぐりーん", r:"Gurīn" },
+  "baker":    { k:"ベイカー", h:"べいかー", r:"Beikā" },
+  "adams":    { k:"アダムズ", h:"あだむず", r:"Adamuzu" },
+  "nelson":   { k:"ネルソン", h:"ねるそん", r:"Neruson" },
+  "carter":   { k:"カーター", h:"かーたー", r:"Kātā" },
+  "mitchell": { k:"ミッチェル", h:"みっちぇる", r:"Mitcheru" },
+  "perez":    { k:"ペレス",   h:"ぺれす",   r:"Peresu" },
+  "roberts":  { k:"ロバーツ", h:"ろばーつ", r:"Robātsu" },
+  "turner":   { k:"ターナー", h:"たーなー", r:"Tānā" },
+  "phillips": { k:"フィリップス", h:"ふぃりっぷす", r:"Firippusu" },
+  "campbell": { k:"キャンベル", h:"きゃんべる", r:"Kyanberu" },
+  "parker":   { k:"パーカー", h:"ぱーかー", r:"Pākā" },
+  "evans":    { k:"エヴァンズ", h:"えう゛ぁんず", r:"Evanuzu" },
+  "edwards":  { k:"エドワーズ", h:"えどわーず", r:"Edowāzu" },
+  "collins":  { k:"コリンズ", h:"こりんず", r:"Korinzu" },
+  "stewart":  { k:"スチュワート", h:"すちゅわーと", r:"Suchuwāto" },
+  "morris":   { k:"モリス",   h:"もりす",   r:"Morisu" },
+  "rogers":   { k:"ロジャーズ", h:"ろじゃーず", r:"Rojāzu" },
+  "reed":     { k:"リード",   h:"りーど",   r:"Rīdo" },
+  "cook":     { k:"クック",   h:"くっく",   r:"Kukku" },
+  "morgan":   { k:"モーガン", h:"もーがん", r:"Mōgan" },
+  "bell":     { k:"ベル",     h:"べる",     r:"Beru" },
+  "murphy":   { k:"マーフィー", h:"まーふぃー", r:"Māfī" },
+  "bailey":   { k:"ベイリー", h:"べいりー", r:"Beirī" },
+  "cox":      { k:"コックス", h:"こっくす", r:"Kokkusu" },
+  "ward":     { k:"ウォード", h:"うぉーど", r:"Wōdo" },
+  "wood":     { k:"ウッド",   h:"うっど",   r:"Uddo" },
+  "hill":     { k:"ヒル",     h:"ひる",     r:"Hiru" },
+  "price":    { k:"プライス", h:"ぷらいす", r:"Puraisu" },
+  "brooks":   { k:"ブルックス", h:"ぶるっくす", r:"Burukkusu" },
+  "gray":     { k:"グレイ",   h:"ぐれい",   r:"Gurei" },
+};
+
+/* ═══════════════════════════════════════════════════
+   PHONETIC FALLBACK — converts unknown names letter by letter
+═══════════════════════════════════════════════════ */
+function phoneticFallback(name) {
+  name = name.toLowerCase().trim();
+
+  const rules = [
+    // Multi-char matches first (order matters!)
+    ["tch", "チ","ち"], ["ch",  "チ","ち"], ["sh",  "シ","し"],
+    ["th",  "ズ","ず"], ["ph",  "フ","ふ"], ["wh",  "ワ","わ"],
+    ["ck",  "ック","っく"], ["qu", "クワ","くわ"],
+    ["ng",  "ング","んぐ"], ["ew", "ュー","ゅー"],
+    ["igh", "アイ","あい"], ["tion","ション","しょん"],
+    ["ture","チャー","ちゃー"],
+    // Vowels
+    ["a",  "ア","あ"], ["e", "エ","え"], ["i", "イ","い"],
+    ["o",  "オ","お"], ["u", "ウ","う"],
+    // Consonants + vowel combos
+    ["ka","カ","か"], ["ki","キ","き"], ["ku","ク","く"], ["ke","ケ","け"], ["ko","コ","こ"],
+    ["sa","サ","さ"], ["si","シ","し"], ["su","ス","す"], ["se","セ","せ"], ["so","ソ","そ"],
+    ["ta","タ","た"], ["ti","チ","ち"], ["tu","ツ","つ"], ["te","テ","て"], ["to","ト","と"],
+    ["na","ナ","な"], ["ni","ニ","に"], ["nu","ヌ","ぬ"], ["ne","ネ","ね"], ["no","ノ","の"],
+    ["ha","ハ","は"], ["hi","ヒ","ひ"], ["hu","フ","ふ"], ["he","ヘ","へ"], ["ho","ホ","ほ"],
+    ["ma","マ","ま"], ["mi","ミ","み"], ["mu","ム","む"], ["me","メ","め"], ["mo","モ","も"],
+    ["ya","ヤ","や"], ["yu","ユ","ゆ"], ["yo","ヨ","よ"],
+    ["ra","ラ","ら"], ["ri","リ","り"], ["ru","ル","る"], ["re","レ","れ"], ["ro","ロ","ろ"],
+    ["wa","ワ","わ"], ["wi","ウィ","うぃ"], ["we","ウェ","うぇ"], ["wo","ウォ","うぉ"],
+    ["ba","バ","ば"], ["bi","ビ","び"], ["bu","ブ","ぶ"], ["be","ベ","べ"], ["bo","ボ","ぼ"],
+    ["pa","パ","ぱ"], ["pi","ピ","ぴ"], ["pu","プ","ぷ"], ["pe","ペ","ぺ"], ["po","ポ","ぽ"],
+    ["da","ダ","だ"], ["di","ディ","でぃ"], ["du","ドゥ","どぅ"], ["de","デ","で"], ["do","ド","ど"],
+    ["ga","ガ","が"], ["gi","ギ","ぎ"], ["gu","グ","ぐ"], ["ge","ゲ","げ"], ["go","ゴ","ご"],
+    ["ja","ジャ","じゃ"], ["ji","ジ","じ"], ["ju","ジュ","じゅ"], ["je","ジェ","じぇ"], ["jo","ジョ","じょ"],
+    ["fa","ファ","ふぁ"], ["fi","フィ","ふぃ"], ["fu","フ","ふ"], ["fe","フェ","ふぇ"], ["fo","フォ","ふぉ"],
+    ["za","ザ","ざ"], ["zi","ジ","じ"], ["zu","ズ","ず"], ["ze","ゼ","ぜ"], ["zo","ゾ","ぞ"],
+    // Lone consonants
+    ["b","ブ","ぶ"], ["c","ク","く"], ["d","ド","ど"], ["f","フ","ふ"], ["g","グ","ぐ"],
+    ["h","ハ","は"], ["j","ジ","じ"], ["k","ク","く"], ["l","ル","る"], ["m","ム","む"],
+    ["n","ン","ん"], ["p","プ","ぷ"], ["q","ク","く"], ["r","ル","る"], ["s","ス","す"],
+    ["t","ト","と"], ["v","ヴ","ゔ"], ["w","ウ","う"], ["x","クス","くす"], ["y","ヤ","や"],
+    ["z","ズ","ず"],
+  ];
+
+  let katakana = ""; let hiragana = ""; let romaji = "";
+  let i = 0;
+  while (i < name.length) {
+    let matched = false;
+    for (const [pat, k, h] of rules) {
+      if (name.slice(i).startsWith(pat)) {
+        katakana += k; hiragana += h;
+        romaji += pat;
+        i += pat.length; matched = true; break;
+      }
+    }
+    if (!matched) { i++; }
+  }
+  return { k: katakana || name, h: hiragana || name, r: romaji || name };
+}
+
+/* ═══════════════════════════════════════════════════
+   LOOKUP
+═══════════════════════════════════════════════════ */
+function lookupName(name, db) {
+  const key = name.toLowerCase().trim();
+  return db[key] || phoneticFallback(name);
+}
+
+/* ═══════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════ */
+let currentFirst = null, currentLast = null;
+let currentCalligStyle = "ink";
+let downloadOption = "first"; // "first" or "full"
+
+/* ═══════════════════════════════════════════════════
+   CONVERT
+═══════════════════════════════════════════════════ */
+function convertName() {
+  const firstName = document.getElementById("first-name").value.trim();
+  const lastName  = document.getElementById("last-name").value.trim();
+  if (!firstName) {
+    document.getElementById("first-name").focus();
+    document.getElementById("first-name").style.borderColor = "#e74c3c";
+    setTimeout(() => document.getElementById("first-name").style.borderColor = "", 1500);
+    return;
+  }
+
+  // Show loading
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("result-section").style.display = "none";
+
+  setTimeout(() => {
+    currentFirst = lookupName(firstName, nameDb);
+    currentLast  = lastName ? lookupName(lastName, lastNameDb) : null;
+
+    // Full results
+    const fullK = currentLast ? currentFirst.k + "・" + currentLast.k : currentFirst.k;
+    const fullH = currentLast ? currentFirst.h + "・" + currentLast.h : currentFirst.h;
+    const fullR = currentLast ? currentFirst.r + " " + currentLast.r  : currentFirst.r;
+
+    document.getElementById("result-katakana").textContent = fullK;
+    document.getElementById("result-hiragana").textContent = fullH;
+    document.getElementById("result-katakana-reading").textContent = fullR;
+    document.getElementById("result-hiragana-reading").textContent = fullR;
+
+    // Breakdown
+    buildBreakdown("breakdown-katakana", firstName, currentFirst.k, currentFirst.r,
+                   lastName, currentLast ? currentLast.k : null, currentLast ? currentLast.r : null);
+    buildBreakdown("breakdown-hiragana", firstName, currentFirst.h, currentFirst.r,
+                   lastName, currentLast ? currentLast.h : null, currentLast ? currentLast.r : null);
+
+    // Info tab
+    document.getElementById("name-info-content").innerHTML = buildInfoText(firstName, lastName, currentFirst, currentLast);
+
+    // Draw calligraphy
+    drawCalligraphy(fullK, currentCalligStyle);
+
+    // Show
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("result-section").style.display = "block";
+    document.getElementById("result-section").scrollIntoView({ behavior:"smooth", block:"start" });
+  }, 700);
+}
+
+function buildBreakdown(elId, fn, fk, fr, ln, lk, lr) {
+  const el = document.getElementById(elId);
+  let html = `<div class="name-part">
+    <div class="name-part-label">First Name</div>
+    <div class="name-part-value">${fk}</div>
+    <div class="name-part-reading">${fn}</div>
+  </div>`;
+  if (ln && lk) {
+    html += `<div class="name-part">
+      <div class="name-part-label">Last Name</div>
+      <div class="name-part-value">${lk}</div>
+      <div class="name-part-reading">${ln}</div>
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+function buildInfoText(fn, ln, fd, ld) {
+  const script = `In Japan, foreign names are written using the <strong>Katakana</strong> phonetic alphabet, which has 46 base characters. Japanese does not use the Latin alphabet for foreign words — instead, it maps each English syllable to the closest Japanese equivalent sound. For example, the English "L" sound does not exist in Japanese, so it becomes "R" (ラ, リ, ル, レ, ロ). Double consonants are often represented with a small ッ (tsu).`;
+  return `<p><strong>${fn}${ln ? " " + ln : ""}</strong> in Katakana is read left-to-right, just like English. In Hiragana, the characters have softer, rounder shapes but represent the same sounds.</p><br><p>${script}</p><br><p style="color:#aaa; font-style:italic;">Tip: In Japan, if you introduce yourself using your Katakana name, native speakers will immediately recognize and be able to write it!</p>`;
+}
+
+/* ═══════════════════════════════════════════════════
+   TAB SWITCHING
+═══════════════════════════════════════════════════ */
+function switchTab(name) {
+  document.querySelectorAll(".result-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+  document.querySelectorAll(".tab-content").forEach(c => c.classList.toggle("active", c.id === "tab-" + name));
+}
+
+/* ═══════════════════════════════════════════════════
+   CHIP SELECTORS
+═══════════════════════════════════════════════════ */
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+  });
+});
+
+/* ═══════════════════════════════════════════════════
+   CALLIGRAPHY CANVAS
+═══════════════════════════════════════════════════ */
+function drawCalligraphy(text, style) {
+  const canvas = document.getElementById("calligraphy-preview");
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  if (style === "ink") {
+    ctx.fillStyle = "#faf7f0";
+  } else if (style === "red") {
+    ctx.fillStyle = "#fff8f7";
+  } else {
+    ctx.fillStyle = "#fffdf0";
+  }
+  ctx.fillRect(0, 0, W, H);
+
+  // Border frame
+  const bcolor = style === "ink" ? "#2a1a0a" : style === "red" ? "#8b1a1a" : "#8b6914";
+  ctx.strokeStyle = bcolor;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(12, 12, W-24, H-24);
+  ctx.lineWidth = 0.5;
+  ctx.strokeRect(18, 18, W-36, H-36);
+
+  // Text color
+  const tcolor = style === "ink" ? "#1a0d00" : style === "red" ? "#8b1a1a" : "#7a5800";
+
+  // Main text
+  const chars = [...text.replace("・","")];
+  const fontSize = chars.length <= 2 ? 96 : chars.length <= 4 ? 72 : 52;
+  ctx.font = `${fontSize}px 'Shippori Mincho', serif`;
+  ctx.fillStyle = tcolor;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  if (chars.length <= 4) {
+    // Vertical layout
+    const lineH = fontSize * 1.3;
+    const totalH = chars.length * lineH;
+    const startY = (H - totalH) / 2 + lineH / 2;
+    chars.forEach((ch, i) => {
+      ctx.fillText(ch, W / 2, startY + i * lineH);
+    });
+  } else {
+    // Wrap to 2 columns
+    const mid = Math.ceil(chars.length / 2);
+    const col1 = chars.slice(0, mid);
+    const col2 = chars.slice(mid);
+    const lineH = fontSize * 1.2;
+    [col1, col2].forEach((col, ci) => {
+      const x = ci === 0 ? W * 0.38 : W * 0.62;
+      const totalH = col.length * lineH;
+      const startY = (H - totalH) / 2 + lineH / 2;
+      col.forEach((ch, i) => ctx.fillText(ch, x, startY + i * lineH));
+    });
+  }
+
+  // Decorative seal (hanko)
+  const sr = 20;
+  ctx.fillStyle = style === "red" ? "#c0392b" : style === "gold" ? "#b8860b" : "#8b1a1a";
+  ctx.beginPath();
+  ctx.arc(W - 38, H - 38, sr, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "white";
+  ctx.font = "13px 'Noto Serif JP', serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("名", W - 38, H - 38);
+}
+
+function selectCalligStyle(style, el) {
+  currentCalligStyle = style;
+  document.querySelectorAll(".style-chip").forEach(c => c.classList.remove("active"));
+  el.classList.add("active");
+  if (currentFirst) {
+    const fullK = currentLast ? currentFirst.k + currentLast.k : currentFirst.k;
+    drawCalligraphy(fullK, style);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   PAYMENT MODAL
+═══════════════════════════════════════════════════ */
+function openPaymentModal() {
+  const fn = document.getElementById("first-name").value.trim();
+  const ln = document.getElementById("last-name").value.trim();
+  document.getElementById("modal-name-display").textContent =
+    fn + (ln ? " " + ln : "");
+  selectDownloadOption(ln ? "full" : "first");
+  document.getElementById("payment-modal").classList.add("open");
+}
+
+function closeModal() {
+  document.getElementById("payment-modal").classList.remove("open");
+}
+
+function selectDownloadOption(opt) {
+  downloadOption = opt;
+  const p = opt === "first" ? "$1.00" : "$2.00";
+  document.getElementById("modal-price").textContent = p;
+  document.getElementById("opt-first").style.borderColor = opt === "first" ? "#d4a017" : "#ddd";
+  document.getElementById("opt-first").style.background  = opt === "first" ? "#fffdf5" : "white";
+  document.getElementById("opt-full").style.borderColor  = opt === "full"  ? "#d4a017" : "#ddd";
+  document.getElementById("opt-full").style.background   = opt === "full"  ? "#fffdf5" : "white";
+}
+
+function goToCheckout() {
+  // ─── Replace these URLs with your actual Stripe payment links ───
+  const links = {
+    first: "https://buy.stripe.com/YOUR_LINK_FIRST_NAME",
+    full:  "https://buy.stripe.com/YOUR_LINK_FULL_NAME"
+  };
+  window.open(links[downloadOption], "_blank");
+  closeModal();
+}
+
+// Close modal on overlay click
+document.getElementById("payment-modal").addEventListener("click", function(e) {
+  if (e.target === this) closeModal();
+});
+
+/* ═══════════════════════════════════════════════════
+   FAQ TOGGLE
+═══════════════════════════════════════════════════ */
+function toggleFaq(el) {
+  el.classList.toggle("open");
+  el.nextElementSibling.classList.toggle("open");
+}
+
+/* ═══════════════════════════════════════════════════
+   ENTER KEY
+═══════════════════════════════════════════════════ */
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter") convertName();
+});
+</script>
+</body>
+</html>
